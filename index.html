@@ -1,0 +1,132 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,500,700" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        background-color: #F1F3F3    
+    }
+    .axis {
+        font: 15px sans-serif;
+    }
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #D4D8DA;
+        stroke-width: 2px;
+        shape-rendering: crispEdges;
+    }
+    #chart {
+        position: absolute;
+        top: 50px;
+        left: 100px;
+    }
+        
+        .toolTip {
+        pointer-events: none;
+        position: absolute;
+        display: none;
+        min-width: 50px;
+        height: auto;
+        background: none repeat scroll 0 0 #ffffff;
+        padding: 9px 14px 6px 14px;
+        border-radius: 2px;
+        text-align: center;
+        line-height: 1.3;
+        color: #5B6770;
+        box-shadow: 0px 3px 9px rgba(0, 0, 0, .15);
+    }
+    .toolTip:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid white;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        margin-left: -12px;
+    }  
+    .toolTip span {
+        font-weight: 500;
+        color: #081F2C;
+    }
+</style>
+
+<body>
+    <h2>Choose digimon to see his stats</h2>
+
+    <select name="selectionList" id="selectionList" onchange="getSelectedValue();">
+        <option value="select">select</option>
+        <option value="botamon">Botamon</option>
+        <option value="koromon">Koromon</option>
+        <option value="agumon">Agumon</option>
+        <option value="greymon">Greymon</option>
+        <option value="skullGreymon">SkullGreymon</option>
+        <option value="metalGreymon">MetalGreymon</option>
+
+        <option value="punimon">Punimon</option>
+        <option value="tsunomon">Tsunomon</option>
+        <option value="gabumon">Gabumon</option>
+        <option value="garurumon">Garurumon</option>
+        <option value="wereGarurumon">WereGarurumon</option>
+        <option value="metalGarurumon">MetalGarurumon</option>
+
+        <option value="poyomon">Poyomon</option>
+        <option value="tokomon">Tokomon</option>
+        <option value="patamon">Patamon</option>
+        <option value="angemon">Angemon</option>
+        <option value="magnaAngemon">MagnaAngemon</option>
+        <option value="seraphimon">Seraphimon</option>
+
+        <option value="nyaromon">Nyaromon</option>
+        <option value="salamon">Salamon</option>
+        <option value="gatomon">Gatomon</option>
+        <option value="angewomon">Angewomon</option>
+        <option value="ophanimon">Ophanimon</option>
+    </select>
+
+    <div id="chart"></div>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="RadarChart.js"></script>
+    <script>
+        function getSelectedValue()
+        {
+            var selectedValue = document.getElementById("selectionList").value;
+            console.log(selectedValue);
+            //Call function to draw the Radar chart
+            d3.json(selectedValue + ".json", function(error, data) {
+                if (error) throw error;
+                RadarChart.draw("#chart", data, config);
+                console.log(selectedValue);
+            });
+        }
+
+        var width = 300,
+        height = 300;
+
+        // Config for the Radar chart
+        var config = {
+            w: width,
+            h: height,
+            maxValue: 100,
+            levels: 5,
+            ExtraWidthX: 300
+        }
+
+        var svg = d3.select('body')
+            .selectAll('svg')
+            .append('svg')
+            .attr("width", width)
+            .attr("height", height);
+    </script>
+</body>
+</html>

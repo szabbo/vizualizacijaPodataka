@@ -1,0 +1,10 @@
+[
+    [
+        {"area":"HP", "value": 69},
+        {"area":"SP", "value": 68},
+        {"area":"ATK", "value": 77},
+        {"area":"DEF", "value": 95},
+        {"area":"INT", "value": 76},
+        {"area":"SPD", "value": 61}			
+    ]
+]
